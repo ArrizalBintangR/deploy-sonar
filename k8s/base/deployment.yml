@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   name: nexus
   labels:
@@ -7,7 +7,7 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: recreate
+    type: Recreate
   selector:
     matchLabels:
       app: nexus
@@ -52,7 +52,7 @@ spec:
               port: 8081
             failureThreshold: 30
             periodSeconds: 10
-          volumes:
-            - name: nexus-data
-              persistentVolumeClaim:
-                claimName: nexus-data-pvc
+      volumes:
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nexus-data-pvc

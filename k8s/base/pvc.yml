@@ -7,7 +7,7 @@ metadata:
 spec:
   # deploying locally using k3s, points to local-path
   storageClassName: local-path
-  accessMode:
+  accessModes:
     - ReadWriteOnce
   resources:
     requests:
