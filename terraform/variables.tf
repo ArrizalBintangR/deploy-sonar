@@ -18,4 +18,5 @@ variable "zone" {
 variable "bucket_name" {
   description = "Globally unique GCS bucket name"
   type = string
+  default = "nexus-blobs-e7b12b7bf42a-20260821"
 }

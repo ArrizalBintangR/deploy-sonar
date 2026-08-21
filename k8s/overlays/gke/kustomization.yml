@@ -7,7 +7,7 @@ resources:
 images:
   - name: nexus3-gcs
     # following the available images and tags on my temporary GCP account
-    newName: europe-west1-docker.pkg.dev/qwiklabs-gcp-04-81c4692545ee/nexus-repo/nexus3-gcs
+    newName: us-east1-docker.pkg.dev/qwiklabs-gcp-01-e7b12b7bf42a/nexus-repo/nexus3-gcs
     newTag: "3.61.0"
 
 patches:
@@ -27,7 +27,7 @@ patches:
         value: "1500Mi"
       - op: replace
         path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "400m"
+        value: "150m"
       - op: replace
         path: /spec/template/spec/containers/0/resources/limits/memory
         value: "2200Mi"
