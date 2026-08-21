@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nexus
 spec:
-  # deploying locally using k3s, points to local-path
+  # deploying locally using k3s, points to local-path (FOR k3s, patched using kustomize overlays)
   storageClassName: local-path
   accessModes:
     - ReadWriteOnce
