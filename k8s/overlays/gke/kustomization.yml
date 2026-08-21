@@ -1,0 +1,3 @@
+# this overlays should be filled to patch everything that will be
+# deployed on gke, such as
+# the pvc storage className, Resource specs limit/requests, and image references

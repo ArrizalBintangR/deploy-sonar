@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nexus-data-pvc
+  labels:
+    app: nexus
+spec:
+  # deploying locally using k3s, points to local-path
+  storageClassName: local-path
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

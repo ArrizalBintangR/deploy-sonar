@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: nexus
+  labels:
+    app: nexus
+spec:
+  replicas: 1
+  strategy:
+    type: recreate
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      labels:
+        app: nexus
+    spec:
+      containers:
+        - name: nexus
+          image: nexus3-gcs:3.61.0
+          imagePullPolicy: IfNotPresent #Local only image pulling
+          ports:
+            - containerPort: 8081
+              name: http
+          volumeMounts:
+            - name:  nexus-data
+              mountPath: /nexus-data
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "1"
+              memory: "3Gi"
+          # health and readiness check because nexus boot up took about 2-3 minutes
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8081
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8081
+            failureThreshold: 30
+            periodSeconds: 10
+          volumes:
+            - name: nexus-data
+              persistentVolumeClaim:
+                claimName: nexus-data-pvc
