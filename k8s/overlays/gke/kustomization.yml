@@ -1,3 +1,33 @@
-# this overlays should be filled to patch everything that will be
-# deployed on gke, such as
-# the pvc storage className, Resource specs limit/requests, and image references
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+images:
+  - name: nexus3-gcs
+    # following the available images and tags on my temporary GCP account
+    newName: europe-west1-docker.pkg.dev/qwiklabs-gcp-04-81c4692545ee/nexus-repo/nexus3-gcs
+    newTag: "3.61.0"
+
+patches:
+  - target:
+      kind: PersistentVolumeClaim
+      name: nexus-data-pvc
+    patch: |-
+      - op: replace
+        path: /spec/storageClassName
+        value: standard-rwo
+  - target:
+      kind: Deployment
+      name: nexus
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "1500Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "400m"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "2200Mi"
