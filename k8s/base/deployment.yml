@@ -27,7 +27,7 @@ spec:
               name: http
           env:
             - name: INSTALL4J_ADD_VM_PARAMS
-              value: "-Xms768m -Xmx768m -XX:MaxDirectMemorySize=768m -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
+              value: "-Xms1024m -Xmx1024m -XX:MaxDirectMemorySize=1024m -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
           volumeMounts:
             - name:  nexus-data
               mountPath: /nexus-data
